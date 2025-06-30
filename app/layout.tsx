@@ -6,9 +6,9 @@ import { ClerkLoaded, ClerkProvider, GoogleOneTap } from "@clerk/nextjs";
 const inter = Outfit({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "AI Course Generator",
+  title: "AI Learn Lab",
   description:
-    "AI Course Generator is a platform that allows users to easily create and generate educational courses using artificial intelligence. By simply entering course details like name, duration, number of chapters, and specifying if videos are included, AI generates the entire course structure along with relevant YouTube videos for each chapter.",
+    "AI Learn Lab is a platform that allows users to easily create and generate educational courses using artificial intelligence...",
 };
 
 export default function RootLayout({
@@ -18,12 +18,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <ClerkProvider>
-        <GoogleOneTap />
-        <body className={inter.className}>
+      {/* 
+        'dark' class will be toggled here by your ThemeSwitcher 
+        (document.documentElement.classList.add/remove('dark'))
+      */}
+      <body
+        className={`${inter.className} bg-white dark:bg-black text-gray-900 dark:text-gray-100 min-h-screen`}
+      >
+        <ClerkProvider>
+          <GoogleOneTap />
           <ClerkLoaded>{children}</ClerkLoaded>
-        </body>
-      </ClerkProvider>
+        </ClerkProvider>
+      </body>
     </html>
   );
 }

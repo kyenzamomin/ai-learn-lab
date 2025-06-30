@@ -1,4 +1,4 @@
-import { LuTimer, LuCheckCircle2 } from "react-icons/lu";
+import { LuTimer, LuCheckCheck } from "react-icons/lu";
 import EditChapters from "./_edit/EditChapters";
 import { CourseType } from "@/types/types";
 
@@ -9,7 +9,8 @@ type ChapterListProps = {
 };
 
 const ChapterList = ({ course, onRefresh, edit = true }: ChapterListProps) => {
-  if (!course || course.courseOutput.chapters.length === 0) {
+  // Safely check if course, course.courseOutput, and course.courseOutput.chapters exist and have chapters
+  if (!course || !course.courseOutput || !Array.isArray(course.courseOutput.chapters) || course.courseOutput.chapters.length === 0) {
     return <p>No chapters available.</p>;
   }
 
@@ -17,7 +18,7 @@ const ChapterList = ({ course, onRefresh, edit = true }: ChapterListProps) => {
     <div className="mt-3">
       <h2 className="font-medium text-2xl">Chapters</h2>
       <div className="mt-2">
-        {course?.courseOutput.chapters.map((chapter, index) => (
+        {course.courseOutput.chapters.map((chapter, index) => (
           <div
             key={index}
             className="border p-5 rounded-lg mb-2 flex items-center justify-between"
@@ -43,7 +44,7 @@ const ChapterList = ({ course, onRefresh, edit = true }: ChapterListProps) => {
                 </p>
               </div>
             </div>
-            <LuCheckCircle2 className="text-4xl text-gray-300 flex-none" />
+            <LuCheckCheck className="text-4xl text-gray-300 flex-none" />
           </div>
         ))}
       </div>

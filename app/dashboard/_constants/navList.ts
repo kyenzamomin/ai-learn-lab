@@ -24,11 +24,6 @@ export const navList: NavListType[] = [
     name: "Explore",
     icon: LuAtom,
     route: "/dashboard/explore",
-  },
-  {
-    id: 3,
-    name: "Upgrade",
-    icon: LuShieldCheck,
-    route: "/dashboard/upgrade",
-  },
+  }
+ 
 ];

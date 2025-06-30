@@ -1,8 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import React from "react";
 import { IconType } from "react-icons/lib";
-import { LuBookOpen, LuFileVideo, LuShare2, LuUser2 } from "react-icons/lu";
-
+import { LuBookOpen, LuFileVideo, LuShare2, LuUser } from "react-icons/lu";
+import StaticRatingFeedback from "../_components/StaticRatingFeedback";
 interface FeatureProps {
   icon: IconType;
   title: string;
@@ -11,7 +11,7 @@ interface FeatureProps {
 
 const features: FeatureProps[] = [
   {
-    icon: LuUser2,
+    icon: LuUser,
     title: "Register for an Account",
     description:
       "Sign up for a free account to access the course creation tools. Once registered, you’ll be able to log in and start building your personalized courses",
@@ -63,6 +63,8 @@ export const HowItWorks = () => {
           </Card>
         ))}
       </div>
+       {/* Add the static rating display here */}
+ <StaticRatingFeedback rating={4.5} totalStars={5} />
     </section>
   );
 };

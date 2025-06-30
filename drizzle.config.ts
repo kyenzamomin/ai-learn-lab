@@ -8,6 +8,6 @@ export default defineConfig({
   schema: "./schema/schema.ts",
   out: "./drizzle",
   dbCredentials: {
-    url: env.DRIZZLE_DATABASE_URL,
+    url: 'postgresql://courses_owner:npg_1IBLrnAOhPG7@ep-twilight-salad-a81snx5a-pooler.eastus2.azure.neon.tech/courses?sslmode=require'
   },
 });

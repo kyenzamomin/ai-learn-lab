@@ -1,11 +1,4 @@
-import {
-  pgTable,
-  serial,
-  varchar,
-  json,
-  boolean,
-  integer,
-} from "drizzle-orm/pg-core";
+import { json, pgTable, serial, varchar,boolean ,integer } from "drizzle-orm/pg-core";
 
 export const CourseList = pgTable("courseList", {
   id: serial("id").primaryKey(),
@@ -14,11 +7,12 @@ export const CourseList = pgTable("courseList", {
   category: varchar("category").notNull(),
   level: varchar("level").notNull(),
   courseOutput: json("courseOutput").notNull(),
-  isVideo: varchar("isVideo").notNull().default("Yes"),
+  isVideo: varchar("isVideo").notNull().default("false"),
   username: varchar("username"),
   userprofileimage: varchar("userprofileimage"),
   createdBy: varchar("createdBy"),
   courseBanner: varchar("courseBanner"),
+  
   isPublished: boolean("isPublished").notNull().default(false),
 });
 

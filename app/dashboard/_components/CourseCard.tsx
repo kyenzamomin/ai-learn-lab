@@ -65,9 +65,10 @@ const CourseCard = ({
         <p className="text-sm text-gray-400 my-1">{course.category}</p>
 
         <div className="flex items-center justify-between">
-          <h2 className="flex items-center gap-2 p-1 bg-purple-50 text-primary text-sm rounded-sm">
-            <MdMenuBook /> {course.courseOutput.chapters.length} Chapters
-          </h2>
+        <h2 className="flex items-center gap-2 p-1 bg-purple-50 text-primary text-sm rounded-sm">
+  <MdMenuBook /> {course.courseOutput.chapters ? course.courseOutput.chapters.length : 0} Chapters
+</h2>
+
           <h2 className="text-sm p-1 bg-purple-50 text-primary rounded-sm">
             {course.level} Level
           </h2>

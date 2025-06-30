@@ -32,9 +32,9 @@ const ExplorePage = () => {
 
   return (
     <div>
-      <h2 className="font-bold text-3xl">Explore More Courses</h2>
-      <p>Explore courses build with AI by Other Users</p>
-
+    <h2 className="text-2xl font-bold">Explore More Courses</h2>
+    <p className="text-muted-foreground">Explore courses built with AI by other users</p>
+  
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-5">
         {courseList ? (
           courseList?.map((course) => (

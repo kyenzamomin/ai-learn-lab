@@ -1,13 +1,17 @@
 import AddCourse from "./_components/AddCourse";
 import UserCourseList from "./_components/UserCourseList";
+import Chat from "./_components/Chat"; // Import the chatbot component
 
-const page = () => {
+const Page = () => {
   return (
-    <div>
+    <div className="relative">
       <AddCourse />
       <UserCourseList />
+
+      {/* Chatbot - Positioned in the bottom right corner */}
+      <Chat />
     </div>
   );
 };
 
-export default page;
+export default Page;

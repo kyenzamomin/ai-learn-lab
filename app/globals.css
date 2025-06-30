@@ -1,9 +1,11 @@
 @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
+@tailwind components;
+@tailwind utilities;
 
-  @layer base {
-    :root {
+@layer base {
+  /* --------- LIGHT THEME (Instagram) --------- */
+  :root {
+    
       --background: 0 0% 100%;
       --foreground: 261.2 72.6% 22.9%;
 
@@ -35,42 +37,58 @@
       --radius: 0.5rem;
     }
 
-    .dark {
-      --background: 261.2 72.6% 22.9%;
-      --foreground: 250 100% 97.6%;
+  .dark {
+    --input: 0 0% 14%; /* Lighter Black (#242424) */
+    --border: 0 0% 45%; /* Medium Gray (#707070) */
+    --foreground: 0 0% 95%; /* Brighter Gray (#F2F2F2) */
 
-      --card: 261.2 72.6% 22.9%;
-      --card-foreground: 250 100% 97.6%;
+    --card: 0 0% 10%; /* Darker Gray (#1A1A1A) */
+    --card-foreground: 0 0% 95%; /* Bright Gray Text */
 
-      --popover: 261.2 72.6% 22.9%;
-      --popover-foreground: 250 100% 97.6%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 95%;
 
-      --primary: 250 100% 97.6%;
-      --primary-foreground: 263.5 67.4% 34.9%;
+    --primary: 240 100% 85%; /* Brighter Instagram Blue */
+    --primary-foreground: 0 0% 95%; /* White-Gray */
 
-      --secondary: 263.4 69.3% 42.2%;
-      --secondary-foreground: 250 100% 97.6%;
+    --secondary: 0 0% 14%; /* Lighter Dark Gray */
+    --secondary-foreground: 0 0% 95%; /* Bright Gray */
 
-      --muted: 263.4 69.3% 42.2%;
-      --muted-foreground: 255.1 91.7% 76.3%;
+    --muted: 0 0% 20%; /* Soft Dark Gray */
+    --muted-foreground: 0 0% 85%; /* Softer Light Gray */
 
-      --accent: 263.4 69.3% 42.2%;
-      --accent-foreground: 250 100% 97.6%;
+    --accent: 0 0% 30%; /* Mid Gray */
+    --accent-foreground: 0 0% 98%; /* Nearly White */
 
-      --destructive: 0 62.8% 30.6%;
-      --destructive-foreground: 250 100% 97.6%;
+    --ring: 0 0% 100%;
+}
 
-      --border: 263.4 69.3% 42.2%;
-      --input: 263.4 69.3% 42.2%;
-      --ring: 252.5 94.7% 85.1%;
-    }
+/* 🎯 Fixes for Specific Elements */
+.dark input,
+.dark select {
+    background-color: #000000; /* Pure Black Background */
+    color: #F2F2F2; /* Bright White-Gray Text */
+    border: 1px solid #707070; /* Light Gray Border */
+}
+.dark input::placeholder,
+.dark select option {
+    color: #B3B3B3; /* Medium Gray Placeholder */
+}
+
+.dark select option:hover {
+    background-color: #333333; /* Slightly Lighter Hover */
+    color: #FFFFFF; /* White Hover Text */
+}
+
+
+}
+
+/* Apply globally */
+@layer base {
+  * {
+    @apply border-border;
   }
-
-  @layer base {
-    * {
-      @apply border-border;
-    }
-    body {
-      @apply bg-background text-foreground;
-    }
+  body {
+    @apply bg-background text-foreground;
   }
+}

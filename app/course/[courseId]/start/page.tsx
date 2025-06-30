@@ -17,11 +17,8 @@ type CourseStartProps = {
 
 const CourseStart = ({ params }: CourseStartProps) => {
   const [course, setCourse] = useState<CourseType | null>(null);
-  const [selectedChapter, setSelectedChapter] = useState<ChapterType | null>(
-    null
-  );
-  const [chapterContent, setChapterContent] =
-    useState<ChapterContentType | null>(null);
+  const [selectedChapter, setSelectedChapter] = useState<ChapterType | null>(null);
+  const [chapterContent, setChapterContent] = useState<ChapterContentType | null>(null);
 
   const getCourse = async () => {
     try {
@@ -30,50 +27,60 @@ const CourseStart = ({ params }: CourseStartProps) => {
         .from(CourseList)
         .where(eq(CourseList.courseId, params.courseId));
 
-      setCourse(result[0] as CourseType);
+      if (result.length > 0) {
+        setCourse(result[0] as CourseType);
+        console.log("Fetched Course Data:", result[0]); // Debugging
+      } else {
+        console.warn("No course found for the given ID.");
+      }
     } catch (e) {
-      console.log(e);
+      console.error("Error fetching course:", e);
     }
   };
 
   useEffect(() => {
-    params && getCourse();
+    if (params?.courseId) {
+      getCourse();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params]);
 
   if (!course) return <div>Loading...</div>;
 
   const getChapterContent = async (chapterId: number) => {
-    const res = await db
-      .select()
-      .from(CourseChapters)
-      .where(
-        and(
-          eq(CourseChapters.chapterId, chapterId),
-          eq(CourseChapters.courseId, course.courseId)
-        )
-      );
+    try {
+      const res = await db
+        .select()
+        .from(CourseChapters)
+        .where(
+          and(
+            eq(CourseChapters.chapterId, chapterId),
+            eq(CourseChapters.courseId, course.courseId)
+          )
+        );
 
-    // console.log("content", res);
-
-    setChapterContent(res[0] as ChapterContentType);
+      if (res.length > 0) {
+        setChapterContent(res[0] as ChapterContentType);
+      } else {
+        console.warn("No chapter content found for the given ID.");
+      }
+    } catch (error) {
+      console.error("Error fetching chapter content:", error);
+    }
   };
-
-  //   console.log("chapterContent", chapterContent);
-
   return (
     <div>
+      {/* Sidebar for Chapters */}
       <div className="fixed md:w-64 hidden md:block h-screen border-r shadow-sm">
         <h2 className="font-medium text-lg bg-primary p-4 text-white">
-          {course?.courseOutput.topic}
+          {course?.courseOutput?.topic || "Untitled Course"}
         </h2>
         <div>
-          {course?.courseOutput.chapters.map((chapter, index) => (
+          {(course?.courseOutput?.chapters || []).map((chapter, index) => (
             <div
               key={index}
               className={`cursor-pointer hover:bg-purple-100 ${
-                selectedChapter?.chapter_name === chapter.chapter_name &&
-                "bg-purple-50"
+                selectedChapter?.chapter_name === chapter.chapter_name && "bg-purple-50"
               }`}
               onClick={() => {
                 setSelectedChapter(chapter);
@@ -86,13 +93,11 @@ const CourseStart = ({ params }: CourseStartProps) => {
         </div>
       </div>
 
+      {/* Course Content Area */}
       <div className="md:ml-64">
         {selectedChapter ? (
           <div>
-            <ChapterContent
-              chapter={selectedChapter}
-              content={chapterContent}
-            />
+            <ChapterContent chapter={selectedChapter} content={chapterContent} />
             <ScrollProgress />
           </div>
         ) : (
@@ -105,9 +110,9 @@ const CourseStart = ({ params }: CourseStartProps) => {
               priority
               className="rounded-lg hover:shadow-lg hover:scale-105 transition-transform duration-500 cursor-pointer mt-20"
             />
-            <p className="felx justify-center gap-3 mt-10">
-              lets get started with the course {course.courseOutput.topic}.
-              Click on the chapters to get started. Enjoy learning!
+            <p className="flex justify-center gap-3 mt-10">
+              Let's get started with the course{" "}
+              <strong>{course?.courseOutput?.topic || "this topic"}</strong>. Click on the chapters to begin. Enjoy learning!
             </p>
             <p className="mt-10">
               <UserToolTip
